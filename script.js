@@ -2,7 +2,7 @@
 // @name         豆瓣读书同步到Notion
 // @namespace    http://your-domain-here.com
 // @version      1.1
-// @description  抓取豆瓣读书信息，基于Notion搭建私人图书管理系统
+// @description  抓取豆瓣读书信息，同步到Notion搭建私人图书管理系统
 // @author       @Yanwudong https://twitter.com/yanwudong
 // @match        https://book.douban.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=douban.com
