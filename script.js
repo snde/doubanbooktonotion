@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         豆瓣读书同步到Notion
-// @namespace    http://your-domain-here.com
-// @version      1.1
-// @description  抓取豆瓣读书信息，同步到Notion搭建私人图书管理系统
+// @namespace    https://greasyfork.org/zh-CN/scripts/464467-%E8%B1%86%E7%93%A3%E8%AF%BB%E4%B9%A6%E5%90%8C%E6%AD%A5%E5%88%B0notion
+// @version      1.4
+// @description  抓取豆瓣读书信息，基于Notion搭建私人图书管理系统
 // @author       @Yanwudong https://twitter.com/yanwudong
 // @match        https://book.douban.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=douban.com
@@ -11,6 +11,7 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_addStyle
+// @license      GNU GPLv3
 // ==/UserScript==
 (function() {
     'use strict';
@@ -125,15 +126,15 @@ const modalHtml = `
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">信息设置</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Notion Api 设置</h5>
       </div>
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <input type="text" class="form-control" id="apiInput" placeholder="Notion API">
+            <input type="text" class="form-control" id="apiInput" placeholder="token">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" id="pageIdInput" placeholder="Notion 页面 ID">
+            <input type="text" class="form-control" id="pageIdInput" placeholder="页面 ID">
           </div>
         </form>
       </div>
@@ -155,15 +156,12 @@ const modalHtml = `
        🎉 同步成功！
      </div>
     `;
-
     //初始化用户信息
-    //GM_setValue('nToken',undefined);
-    //GM_setValue = ('pageId',undefined);
-    //GM_setValue = ('databaseId','961aa20e76a0477496974e33273c1b0e');
     var nToken = GM_getValue('nToken');
     var pageId = GM_getValue('pageId');
     var databaseId = GM_getValue('databaseId');
     const notionVersion = '2022-06-28';
+
 
     // 创建一个轻提示框元素
     const toast = document.createElement('div');
@@ -202,7 +200,6 @@ const modalHtml = `
 
     //检查用户是否登录
     const checkUserInfo = () =>{
-        debugger
         // 如果用户没有输入过信息，弹出输入框让其输入
         if (!nToken || !pageId || !databaseId ) {
             nlog.style.display = 'block';
@@ -274,7 +271,6 @@ const modalHtml = `
     const syncToNotion = () => {
         //先判断有没有设置用户api
         //checkUserInfo();
-        debugger;
         const book = getBookInfo();
         //怎么创建数据库，并把数据传进去，是最大的问题？2023年4月17日11:40:34创建数据库；2023年4月17日14:52，创建数据库成功了，卧槽感人
         //createDatabase()
